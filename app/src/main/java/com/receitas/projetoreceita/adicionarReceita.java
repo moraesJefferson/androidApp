@@ -1,6 +1,7 @@
 package com.receitas.projetoreceita;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.receitas.projetoreceita.dao.PessoaDao;
 import com.receitas.projetoreceita.modelo.Pessoa;
 
@@ -17,15 +17,22 @@ public class adicionarReceita extends AppCompatActivity {
     private FormularioHelper helper;
     private AlertDialog.Builder dialog;
     private Pessoa pessoa;
+    private Pessoa pessoaUpdate;
     private PessoaDao pessoaDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_receita);
+        this.helper = new FormularioHelper(this);
+        this.pessoaDao = new PessoaDao(getApplicationContext());
 
-        helper = new FormularioHelper(this);
-        pessoaDao = new PessoaDao(getApplicationContext());
+        Intent intent = getIntent();
+        pessoaUpdate = (Pessoa) intent.getSerializableExtra("pessoa");
+        if (pessoaUpdate != null) {
+            helper.preencheFormulario(pessoaUpdate);
+
+        }
     }
 
     @Override
@@ -39,43 +46,23 @@ public class adicionarReceita extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nextId:
-                retornarDados();
+                pessoa = helper.pegaDados();
+                if (pessoa.getId() != null){
+                    pessoaDao.update(pessoa);
+                }else{
+                    if (pessoa.getNome().isEmpty() || pessoa.getServico().isEmpty() || pessoa.getCpf().isEmpty() || pessoa.getTelefone().isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "PREENCHA TODOS OS CAMPOS", Toast.LENGTH_LONG).show();
+                    } else {
+                        pessoaDao.insere(pessoa);
+                    }
+                }
+                pessoaDao.close();
+                Toast.makeText(getApplicationContext(), "Salvando dados", Toast.LENGTH_SHORT).show();
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    public void retornarDados() {
-
-        pessoa = helper.pegaDados();
-
-        if (pessoa.getNome().isEmpty() || pessoa.getServico().isEmpty() || pessoa.getCpf().isEmpty() || pessoa.getTelefone().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "PREENCHA TODOS OS CAMPOS", Toast.LENGTH_LONG).show();
-        } else {
-
-            dialog = new AlertDialog.Builder(adicionarReceita.this);
-            dialog.setTitle("Adicionar Serviço");
-            dialog.setMessage("Confirmar?");
-            dialog.setCancelable(false);
-            dialog.setIcon(R.drawable.ic_check_box_black_24dp);
-
-            dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                @Override
-                 public void onClick(DialogInterface dialogInterface, int i) {
-                }
-            });
-            dialog.setPositiveButton("Prosseguir", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                    pessoaDao.insere(pessoa);
-                    pessoaDao.close();
-                    Toast.makeText(getApplicationContext(), "Salvando dados", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            });
-            dialog.create();
-            dialog.show();
-        }
-    }
 }
+
+

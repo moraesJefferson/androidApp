@@ -11,22 +11,31 @@ public class FormularioHelper {
     private EditText cpfId;
     private EditText servicoId;
     private EditText foneId;
+    private Pessoa pessoa;
 
-    public FormularioHelper(adicionarReceita activity){
+    public FormularioHelper(adicionarReceita activity) {
 
         nomeId = activity.findViewById(R.id.nomeId);
         cpfId = activity.findViewById(R.id.cpfId);
         servicoId = activity.findViewById(R.id.servicoId);
         foneId = activity.findViewById(R.id.foneId);
+        pessoa = new Pessoa();
     }
 
-    public Pessoa pegaDados(){
-
-        Pessoa pessoa = new Pessoa();
+    public Pessoa pegaDados() {
         pessoa.setNome(nomeId.getText().toString());
         pessoa.setCpf(cpfId.getText().toString());
         pessoa.setServico(servicoId.getText().toString());
         pessoa.setTelefone(foneId.getText().toString());
         return pessoa;
+    }
+
+    public void preencheFormulario(Pessoa pessoa) {
+
+        nomeId.setText(pessoa.getNome());
+        cpfId.setText(pessoa.getCpf());
+        servicoId.setText(pessoa.getServico());
+        foneId.setText(pessoa.getTelefone());
+        this.pessoa = pessoa;
     }
 }

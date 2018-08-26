@@ -1,8 +1,11 @@
 package com.receitas.projetoreceita.modelo;
 
-public class Pessoa {
+import java.io.Serializable;
+
+public class Pessoa implements Serializable {
 
     private String nome;
+    private Long id;
     private String cpf;
     private String servico;
     private String telefone;
@@ -13,6 +16,14 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCpf() {
@@ -41,6 +52,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return getNome() + " - " + getCpf();
+        return getId() + " - " + getNome();
     }
+
 }
