@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ProjetoReceita</string>
     <string name="add" />
-    <string name="serviços" />
+    <string name="services" />
+    <string name="update" />
+    <string name="prosseguir">prosseguir</string>
 </resources>
