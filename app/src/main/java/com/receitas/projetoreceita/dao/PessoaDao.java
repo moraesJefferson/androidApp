@@ -57,5 +57,6 @@ public class PessoaDao extends SQLiteOpenHelper {
         }
         cursor.close();
         return pessoas;
+        //comentario
     }
 }
