@@ -9,6 +9,7 @@ public class Pessoa implements Serializable {
     private String cpf;
     private String servico;
     private String telefone;
+    private String endereco;
 
     public String getNome() {
         return nome;
@@ -48,6 +49,14 @@ public class Pessoa implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     @Override

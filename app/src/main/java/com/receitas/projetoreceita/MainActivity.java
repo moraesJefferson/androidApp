@@ -1,6 +1,7 @@
 package com.receitas.projetoreceita;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -66,12 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        final Pessoa pessoa = (Pessoa) lista.getItemAtPosition(info.position);
+
         MenuItem delete = menu.add("Delete");
         delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Pessoa pessoa = (Pessoa) lista.getItemAtPosition(info.position);
                 PessoaDao pessoaDao = new PessoaDao(getApplicationContext());
                 pessoaDao.deletar(pessoa);
                 pessoaDao.close();
@@ -80,5 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        MenuItem map = menu.add("Ver Endereço");
+        Intent intentMap = new Intent(Intent.ACTION_VIEW);
+        intentMap.setData(Uri.parse("geo:0,0?q=" + pessoa.getEndereco()));
+        map.setIntent(intentMap);
     }
 }

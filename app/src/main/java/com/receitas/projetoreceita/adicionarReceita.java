@@ -1,6 +1,5 @@
 package com.receitas.projetoreceita;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +14,6 @@ import com.receitas.projetoreceita.modelo.Pessoa;
 public class adicionarReceita extends AppCompatActivity {
 
     private FormularioHelper helper;
-    private AlertDialog.Builder dialog;
     private Pessoa pessoa;
     private Pessoa pessoaUpdate;
     private PessoaDao pessoaDao;
@@ -47,12 +45,12 @@ public class adicionarReceita extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.nextId:
                 pessoa = helper.pegaDados();
-                if (pessoa.getId() != null){
+                if(pessoa.getId() != null){
                     pessoaDao.update(pessoa);
                 }else{
-                    if (pessoa.getNome().isEmpty() || pessoa.getServico().isEmpty() || pessoa.getCpf().isEmpty() || pessoa.getTelefone().isEmpty()) {
+                    if(pessoa.getNome().isEmpty() || pessoa.getServico().isEmpty() || pessoa.getCpf().isEmpty() || pessoa.getTelefone().isEmpty() || pessoa.getEndereco().isEmpty()) {
                         Toast.makeText(getApplicationContext(), "PREENCHA TODOS OS CAMPOS", Toast.LENGTH_LONG).show();
-                    } else {
+                    }else{
                         pessoaDao.insere(pessoa);
                     }
                 }

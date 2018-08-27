@@ -20,7 +20,7 @@ public class PessoaDao extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE IF NOT EXISTS servicos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, cpf INT, servicos TEXT, fone TEXT);";
+        String sql = "CREATE TABLE IF NOT EXISTS servicos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL, cpf INT, servicos TEXT, fone TEXT,endereco TEXT);";
         db.execSQL(sql);
     }
 
@@ -44,6 +44,7 @@ public class PessoaDao extends SQLiteOpenHelper {
         dados.put("cpf", pessoa.getCpf());
         dados.put("servicos", pessoa.getServico());
         dados.put("fone", pessoa.getTelefone());
+        dados.put("endereco",pessoa.getEndereco());
         return dados;
     }
 
@@ -61,6 +62,7 @@ public class PessoaDao extends SQLiteOpenHelper {
             pessoa.setId(cursor.getLong(cursor.getColumnIndex("id")));
             pessoa.setCpf(cursor.getString(cursor.getColumnIndex("cpf")));
             pessoa.setTelefone(cursor.getString(cursor.getColumnIndex("fone")));
+            pessoa.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
             pessoas.add(pessoa);
         }
         cursor.close();

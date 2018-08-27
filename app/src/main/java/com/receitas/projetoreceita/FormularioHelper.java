@@ -11,6 +11,7 @@ public class FormularioHelper {
     private EditText cpfId;
     private EditText servicoId;
     private EditText foneId;
+    private EditText enderecoId;
     private Pessoa pessoa;
 
     public FormularioHelper(adicionarReceita activity) {
@@ -19,6 +20,7 @@ public class FormularioHelper {
         cpfId = activity.findViewById(R.id.cpfId);
         servicoId = activity.findViewById(R.id.servicoId);
         foneId = activity.findViewById(R.id.foneId);
+        enderecoId = activity.findViewById(R.id.enderecoId);
         pessoa = new Pessoa();
     }
 
@@ -27,6 +29,7 @@ public class FormularioHelper {
         pessoa.setCpf(cpfId.getText().toString());
         pessoa.setServico(servicoId.getText().toString());
         pessoa.setTelefone(foneId.getText().toString());
+        pessoa.setEndereco(enderecoId.getText().toString());
         return pessoa;
     }
 
@@ -36,6 +39,7 @@ public class FormularioHelper {
         cpfId.setText(pessoa.getCpf());
         servicoId.setText(pessoa.getServico());
         foneId.setText(pessoa.getTelefone());
+        enderecoId.setText(pessoa.getEndereco());
         this.pessoa = pessoa;
     }
 }
