@@ -47,16 +47,19 @@ public class adicionarReceita extends AppCompatActivity {
                 pessoa = helper.pegaDados();
                 if(pessoa.getId() != null){
                     pessoaDao.update(pessoa);
+                    pessoaDao.close();
+                    Toast.makeText(getApplicationContext(), "Salvando dados", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else{
                     if(pessoa.getNome().isEmpty() || pessoa.getServico().isEmpty() || pessoa.getCpf().isEmpty() || pessoa.getTelefone().isEmpty() || pessoa.getEndereco().isEmpty()) {
                         Toast.makeText(getApplicationContext(), "PREENCHA TODOS OS CAMPOS", Toast.LENGTH_LONG).show();
                     }else{
                         pessoaDao.insere(pessoa);
+                        pessoaDao.close();
+                        Toast.makeText(getApplicationContext(), "Salvando dados", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }
-                pessoaDao.close();
-                Toast.makeText(getApplicationContext(), "Salvando dados", Toast.LENGTH_SHORT).show();
-                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
