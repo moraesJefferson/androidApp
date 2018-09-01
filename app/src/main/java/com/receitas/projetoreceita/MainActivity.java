@@ -1,7 +1,10 @@
 package com.receitas.projetoreceita;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -88,5 +91,31 @@ public class MainActivity extends AppCompatActivity {
         Intent intentMap = new Intent(Intent.ACTION_VIEW);
         intentMap.setData(Uri.parse("geo:0,0?q=" + pessoa.getEndereco()));
         map.setIntent(intentMap);
+
+        MenuItem msg = menu.add("Mandar mensagem");
+        Intent intentWhat = new Intent(Intent.ACTION_SENDTO);
+        String num = pessoa.getTelefone();
+        if(num.startsWith("9") && num.length() == 9){
+            int numStr = num.length();
+            num = num.substring(1,numStr);
+        }
+        intentWhat.setData(Uri.parse("smsto:" + num));
+        intentWhat.setPackage("com.whatsapp");
+        msg.setIntent(Intent.createChooser(intentWhat,""));
+
+        MenuItem fone = menu.add("Ligar");
+        fone.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE},123);
+                }else{
+                    Intent intentFone = new Intent(Intent.ACTION_CALL);
+                    intentFone.setData(Uri.parse("tel:"+ pessoa.getTelefone()));
+                    startActivity(intentFone);
+                }
+                return false;
+            }
+        });
     }
 }
