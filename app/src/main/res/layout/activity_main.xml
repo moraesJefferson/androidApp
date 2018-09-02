@@ -11,7 +11,8 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/menuId"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -42,36 +43,22 @@
             app:layout_constraintGuide_percent="0.65" />
 
         <ImageView
-            android:id="@+id/addId"
-            android:layout_width="54dp"
-            android:layout_height="53dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginLeft="79dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginStart="79dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/listaId"
-            app:srcCompat="@drawable/ic_add_circle_black_24dp" />
-
-        <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
-            android:layout_height="123dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/services"
+            android:cropToPadding="true"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/menu_servico" />
 
+
         <ListView
             android:id="@+id/listaId"
-            android:layout_width="305dp"
+            android:layout_width="wrap_content"
             android:layout_height="273dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
@@ -81,6 +68,42 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <Button
+            android:id="@+id/formulario_botao_camera"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="79dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="79dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fundo_camera"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listaId" />
+
+        <Button
+            android:id="@+id/formulario_botao_add"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginLeft="79dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginStart="79dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fundo_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/listaId" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView add;
+    private Button add;
     private ListView lista;
     private ArrayAdapter<Pessoa> Servico;
     private List<Pessoa> pessoa;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lista = findViewById(R.id.listaId);
-        add = findViewById(R.id.addId);
+        add = findViewById(R.id.formulario_botao_add);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
