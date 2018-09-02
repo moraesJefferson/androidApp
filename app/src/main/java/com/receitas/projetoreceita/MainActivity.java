@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,13 +17,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.receitas.projetoreceita.dao.PessoaDao;
 import com.receitas.projetoreceita.modelo.Pessoa;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button add;
+    private FloatingActionButton fabAdd;
     private ListView lista;
     private ArrayAdapter<Pessoa> Servico;
     private List<Pessoa> pessoa;
@@ -33,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lista = findViewById(R.id.listaId);
-        add = findViewById(R.id.formulario_botao_add);
+        fabAdd = findViewById(R.id.fabAddId);
 
-        add.setOnClickListener(new View.OnClickListener() {
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, adicionarReceita.class));
             }
         });
@@ -96,23 +99,23 @@ public class MainActivity extends AppCompatActivity {
         MenuItem msg = menu.add("Mandar mensagem");
         Intent intentWhat = new Intent(Intent.ACTION_SENDTO);
         String num = pessoa.getTelefone();
-        if(num.startsWith("9") && num.length() == 9){
+        if (num.startsWith("9") && num.length() == 9) {
             int numStr = num.length();
-            num = num.substring(1,numStr);
+            num = num.substring(1, numStr);
         }
         intentWhat.setData(Uri.parse("smsto:" + num));
         intentWhat.setPackage("com.whatsapp");
-        msg.setIntent(Intent.createChooser(intentWhat,""));
+        msg.setIntent(Intent.createChooser(intentWhat, ""));
 
         MenuItem fone = menu.add("Ligar");
         fone.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE},123);
-                }else{
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 123);
+                } else {
                     Intent intentFone = new Intent(Intent.ACTION_CALL);
-                    intentFone.setData(Uri.parse("tel:"+ pessoa.getTelefone()));
+                    intentFone.setData(Uri.parse("tel:" + pessoa.getTelefone()));
                     startActivity(intentFone);
                 }
                 return false;
