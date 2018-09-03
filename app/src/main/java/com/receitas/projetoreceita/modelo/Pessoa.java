@@ -10,6 +10,7 @@ public class Pessoa implements Serializable {
     private String servico;
     private String telefone;
     private String endereco;
+    private String foto;
 
     public String getNome() {
         return nome;
@@ -59,6 +60,13 @@ public class Pessoa implements Serializable {
         this.endereco = endereco;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 
     @Override
     public String toString() {
